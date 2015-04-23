@@ -1,2 +1,9 @@
-$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'fluent/plugin/allsyslog'
+# encoding: UTF-8
+require 'rubygems'
+require 'bundler'
+
+require 'rspec'
+require 'fluent/test'
+require 'fluent/parser'
+
+Dir["./lib/**/*.rb"].each{| f | require f}
