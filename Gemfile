@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in fluent-plugin-allsyslog.gemspec
+# Specify your gem's dependencies in fluent-plugin-newsyslog.gemspec
 gemspec

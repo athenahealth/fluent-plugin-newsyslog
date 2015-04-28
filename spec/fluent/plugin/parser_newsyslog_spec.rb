@@ -1,8 +1,11 @@
 require 'spec_helper'
 
-describe Fluent::TextParser::AllsyslogParser do
+describe Fluent::TextParser::NewSyslogParser do
+  include Fluent
 
-  before(:each) { subject.configure(Hash.new) }
+  #subject { TextParser::TEMPLATE_REGISTRY.lookup('newsyslog').call }
+
+  before(:each) { subject.configure('with_priority' => true) }
 
   it { should respond_to(:parse)}
   it { should respond_to(:configure)}
@@ -16,17 +19,6 @@ describe Fluent::TextParser::AllsyslogParser do
         to eq([1444616055,
                {'pri'     => 34,
                 'host'    => 'mymachine',
-                'ident'   => 'su',
-                'pid'     => '10',
-                'message' => "'su root' failed for lonvick on /dev/pts/8"
-               }
-              ])
-  end
-
-  it 'parses syslog message without priority' do
-    expect(subject.parse("Oct 11 22:14:15 mymachine su[10] 'su root' failed for lonvick on /dev/pts/8")).
-        to eq([1444616055,
-               {'host'    => 'mymachine',
                 'ident'   => 'su',
                 'pid'     => '10',
                 'message' => "'su root' failed for lonvick on /dev/pts/8"
@@ -79,9 +71,25 @@ describe Fluent::TextParser::AllsyslogParser do
               ])
   end
 
+  context 'when with_priorty set to false' do
+
+    before(:each) { subject.configure('with_priority' => false) }
+
+    it 'parses syslog message without priority' do
+      expect(subject.parse("Oct 11 22:14:15 mymachine su[10] 'su root' failed for lonvick on /dev/pts/8")).
+          to eq([1444616055,
+                 {'host'    => 'mymachine',
+                  'ident'   => 'su',
+                  'pid'     => '10',
+                  'message' => "'su root' failed for lonvick on /dev/pts/8"
+                 }
+                ])
+    end
+  end
+
   context 'when payload_message set to true' do
 
-    before(:each) { subject.configure({:payload_message => true}) }
+    before(:each) { subject.configure('with_priority' => true, 'payload_message' => true) }
 
     it 'parses syslog message in rfc5424 format with no STRUCTURED-DATA and time in offset format' do
       expect(subject.parse("<165>1 2003-08-24T05:14:15.000003-07:00 192.0.2.1"\
