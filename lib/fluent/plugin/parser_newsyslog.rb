@@ -25,12 +25,13 @@ module Fluent
 
         if @with_priority
           if /^\<.*\>\d/.match(text)
-            #matched rfc5424 syslog format
+            #match rfc5424 syslog format
             regex = /^\<(?<pri>[0-9]+)\>(1)(?<time>[^ ]* {1,2}[^ ]*) (?<host>[^ ]*) (?<ident>[^ ]*) (?<pid>[^ ]*) (?<msgid>[^ ]*) (-|) *(?<message>.*)$/
           elsif /^\<.*>/.match(text)
-            #match rfc3164 syslog format with priority
+            #match rfc3164 syslog format
             regex = /^\<(?<pri>[0-9]+)\>(?<time>[^ ]* {1,2}[^ ]* [^ ]*) (?<host>[^ ]*) (?<ident>[a-zA-Z0-9_\/\.\-]*)(?:\[(?<pid>[0-9]+)\])?(?:[^\:]*\:)? *(?<message>.*)$/
           else
+            #set an impossible regex match if not matching a the start of a syslog message above
             regex = /a^/
           end
         else

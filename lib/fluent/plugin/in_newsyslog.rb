@@ -65,6 +65,7 @@ module Fluent
 
     def configure(conf)
       super
+      conf['with_priority'] = true
       @parser = TextParser::NewSyslogParser.new
       @parser.configure(conf)
     end

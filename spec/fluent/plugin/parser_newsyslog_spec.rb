@@ -14,6 +14,10 @@ describe Fluent::TextParser::NewSyslogParser do
     expect(subject.parse('')).to eq([nil, nil])
   end
 
+  it 'returns [nil, nil] with incorrectly formatted syslog message' do
+    expect(subject.parse('<>This should not match')).to eq([nil, nil])
+  end
+
   it 'parses syslog message with priority' do
     expect(subject.parse("<34>Oct 11 22:14:15 mymachine su[10] 'su root' failed for lonvick on /dev/pts/8")).
         to eq([1444616055,
