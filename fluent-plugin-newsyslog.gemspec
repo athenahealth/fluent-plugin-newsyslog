@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Kevin Scheunemann"]
   spec.email         = ["kscheunemann@athenahealth.com"]
 
-  spec.summary       = %q{A better fluentd syslog parser}
+  spec.summary       = %q{A better fluentd syslog input and parser}
   spec.description   = %q{A fluentd syslog parser that handles multiple formats }
   spec.homepage      = "https://github.com/athenahealth/fluent-plugin-newsyslog"
 
