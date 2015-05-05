@@ -23,4 +23,4 @@ task :coverage do |t|
   Rake::Task["test"].invoke
 end
 
-task :default => [:test, :rspec, :build]
+task :default => [:test, :spec, :build]
