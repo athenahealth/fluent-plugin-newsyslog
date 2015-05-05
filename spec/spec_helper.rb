@@ -7,3 +7,5 @@ require 'fluent/test'
 require 'fluent/parser'
 
 Dir["./lib/**/*.rb"].each{| f | require f}
+
+Test::Unit::AutoRunner.need_auto_run = false if defined?(Test::Unit::AutoRunner)

@@ -1,13 +1,13 @@
-require "bundler/gem_tasks"
+require 'bundler/gem_tasks'
 
-require 'fileutils'
 require 'rake/testtask'
 require 'rake/clean'
+require 'rspec/core/rake_task'
 
-task :test => [:base_test]
+RSpec::Core::RakeTask.new(:spec)
 
 desc 'Run test_unit based test'
-Rake::TestTask.new(:base_test) do |t|
+Rake::TestTask.new(:test) do |t|
   # To run test for only one file (or file path pattern)
   #  $ bundle exec rake base_test TEST=test/test_specified_path.rb
   #  $ bundle exec rake base_test TEST=test/test_*.rb
@@ -15,12 +15,6 @@ Rake::TestTask.new(:base_test) do |t|
   t.test_files = Dir["test/**/test_*.rb"].sort
   t.verbose = true
   #t.warning = true
-end
-
-task :parallel_test do
-  FileUtils.rm_rf('./test/tmp')
-  sh("parallel_test ./test/*.rb ./test/plugin/*.rb")
-  FileUtils.rm_rf('./test/tmp')
 end
 
 desc 'Run test with simplecov'
