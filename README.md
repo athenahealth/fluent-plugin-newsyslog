@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/athenahealth/fluent-plugin-newsyslog.svg?branch=master)](https://travis-ci.org/athenahealth/fluent-plugin-newsyslog)
 # Fluent::Plugin::NewSyslog
 
 This is a new syslog input and parser plugins for Fluentd.
