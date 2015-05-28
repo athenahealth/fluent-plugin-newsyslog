@@ -1,9 +1,9 @@
 [![Build Status](https://travis-ci.org/athenahealth/fluent-plugin-newsyslog.svg?branch=master)](https://travis-ci.org/athenahealth/fluent-plugin-newsyslog)
 # Fluent::Plugin::NewSyslog
 
-This is a new syslog input and parser plugins for Fluentd.
+This is a syslog input and parser plugins for Fluentd.
 It supports the newer rfc5424 syslog format along with the older rfc3164 format.
-It also automatically parse the time formats using the build in 
+It will automatically parse the time formats using the built in 
 ruby time parser rather than specifying the expected format from the syslog message.
 The parser plugin is backwards compatible with the built in syslog parser.
 

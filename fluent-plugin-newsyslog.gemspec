@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Kevin Scheunemann"]
   spec.email         = ["kscheunemann@athenahealth.com"]
 
-  spec.summary       = %q{A better fluentd syslog input and parser}
-  spec.description   = %q{A fluentd syslog parser that handles multiple formats }
+  spec.summary       = %q{A better fluentd syslog input and parser plugin}
+  spec.description   = %q{A fluent plugin that includes a syslog parser that handles both rfc3164 and rfc5424 formats }
   spec.homepage      = "https://github.com/athenahealth/fluent-plugin-newsyslog"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
