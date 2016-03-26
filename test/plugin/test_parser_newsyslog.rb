@@ -17,7 +17,7 @@ module ParserTest
     include ParserTest
 
     def setup
-      @parser = TextParser::TEMPLATE_REGISTRY.lookup('newsyslog').call
+      @parser = create_driver
       @expected = {
           'host'    => '192.168.0.1',
           'ident'   => 'fluentd',
@@ -26,8 +26,17 @@ module ParserTest
       }
     end
 
+    def create_driver(conf={})
+      Fluent::Test::ParserTestDriver.new(Fluent::TextParser::NewSyslogParser)
+    end
+
+    def configure(conf)
+      @parser.configure({}.merge(conf))
+    end
+
+
     def test_parse
-      @parser.configure({})
+      configure({})
       @parser.parse('Feb 28 12:00:00 192.168.0.1 fluentd[11111]: [error] Syslog test') { |time, record|
         assert_equal(str2time('Feb 28 12:00:00', '%b %d %H:%M:%S'), time)
         assert_equal(@expected, record)
@@ -35,7 +44,7 @@ module ParserTest
     end
 
     def test_parse_with_time_format
-      @parser.configure('time_format' => '%b %d %M:%S:%H')
+      configure('time_format' => '%b %d %M:%S:%H')
       @parser.parse('Feb 28 00:00:12 192.168.0.1 fluentd[11111]: [error] Syslog test') { |time, record|
         assert_equal(str2time('Feb 28 12:00:00', '%b %d %H:%M:%S'), time)
         assert_equal(@expected, record)
@@ -43,7 +52,7 @@ module ParserTest
     end
 
     def test_parse_with_priority
-      @parser.configure('with_priority' => true)
+      configure('with_priority' => true)
       @parser.parse('<6>Feb 28 12:00:00 192.168.0.1 fluentd[11111]: [error] Syslog test') { |time, record|
         assert_equal(str2time('Feb 28 12:00:00', '%b %d %H:%M:%S'), time)
         assert_equal(@expected.merge('pri' => 6), record)
@@ -51,7 +60,7 @@ module ParserTest
     end
 
     def test_parse_payload_message
-      @parser.configure('with_priority' => true, 'payload_message' => true)
+      configure('with_priority' => true, 'payload_message' => true)
       @parser.parse('<6>Feb 28 12:00:00 192.168.0.1 fluentd[11111]: [error] Syslog test') { |time, record|
         assert_equal(str2time('Feb 28 12:00:00', '%b %d %H:%M:%S'), time)
         assert_equal({ 'host'    => '192.168.0.1',
@@ -62,7 +71,7 @@ module ParserTest
     end
 
     def test_parse_without_colon
-      @parser.configure({})
+      configure({})
       @parser.parse('Feb 28 12:00:00 192.168.0.1 fluentd[11111] [error] Syslog test') { |time, record|
         assert_equal(str2time('Feb 28 12:00:00', '%b %d %H:%M:%S'), time)
         assert_equal(@expected, record)

@@ -1,9 +1,8 @@
 require 'spec_helper'
 
 describe Fluent::TextParser::NewSyslogParser do
-  include Fluent
 
-  #subject { TextParser::TEMPLATE_REGISTRY.lookup('newsyslog').call }
+  subject { Fluent::Test::ParserTestDriver.new(Fluent::TextParser::NewSyslogParser) }
 
   before(:each) { subject.configure('with_priority' => true) }
 
