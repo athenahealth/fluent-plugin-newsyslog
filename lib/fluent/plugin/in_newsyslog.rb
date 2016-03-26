@@ -44,6 +44,7 @@ module Fluent
       super
       require 'cool.io'
       require 'fluent/plugin/socket_util'
+      require 'fluent/plugin/parser_newsyslog'
     end
 
     config_param :port, :integer, :default => 5140

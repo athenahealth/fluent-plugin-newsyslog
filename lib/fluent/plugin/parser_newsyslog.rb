@@ -4,7 +4,7 @@ module Fluent
   class TextParser
     class NewSyslogParser < Parser
       # register as newsyslog parser
-      Plugin.register_parser("newsyslog", self)
+      Plugin.register_parser('newsyslog', self)
 
       # default to using the built in ruby time parser rather than specifying a time format
       config_param :time_format, :string, :default => nil #"%b %d %H:%M:%S"
