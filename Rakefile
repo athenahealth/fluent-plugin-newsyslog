@@ -2,9 +2,6 @@ require 'bundler/gem_tasks'
 
 require 'rake/testtask'
 require 'rake/clean'
-require 'rspec/core/rake_task'
-
-RSpec::Core::RakeTask.new(:spec)
 
 desc 'Run test_unit based test'
 Rake::TestTask.new(:test) do |t|
@@ -23,4 +20,4 @@ task :coverage do |t|
   Rake::Task["test"].invoke
 end
 
-task :default => [:test, :spec, :build]
+task :default => [:test, :build]
