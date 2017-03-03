@@ -28,7 +28,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'fluentd', '>= 0.10.59'
   spec.add_development_dependency 'bundler', '~> 1.9'
   spec.add_development_dependency 'rake', '~> 10.0'
-  spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'flexmock'
   spec.add_development_dependency 'simplecov', '~> 0.6.4'
   spec.add_development_dependency 'rr', '>= 1.0.0'

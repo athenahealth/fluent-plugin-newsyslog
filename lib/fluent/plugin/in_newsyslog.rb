@@ -1,3 +1,5 @@
+require 'fluent/input'
+
 module Fluent
   class NewSyslogInput < Input
     Plugin.register_input('newsyslog', self)
@@ -72,6 +74,8 @@ module Fluent
     end
 
     def start
+      super
+
       @loop = Coolio::Loop.new
       @handler = listen(method(:receive_data))
       @loop.attach(@handler)
@@ -84,6 +88,8 @@ module Fluent
       @loop.stop
       @handler.close
       @thread.join
+
+      super
     end
 
     def run
